@@ -29,10 +29,6 @@ class Runtime
         // Legacy code reads and writes relative paths such as ./assets/uploads/.
         chdir(public_path());
 
-        // Same level as CodeIgniter's production mode. Laravel would otherwise turn every
-        // undefined index in the legacy code into a fatal exception.
-        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
-
         $baseUrl = rtrim(request()->getSchemeAndHttpHost().request()->getBasePath(), '/').'/';
 
         defined('ASSET_URL') || define('ASSET_URL', $baseUrl.'assets/');
@@ -41,11 +37,19 @@ class Runtime
         defined('JS_URL') || define('JS_URL', $baseUrl.'assets/js/');
         defined('IMG_URL') || define('IMG_URL', $baseUrl.'assets/images/');
         defined('UPLOAD_PATH') || define('UPLOAD_PATH', $baseUrl.'assets/uploads/');
+    }
 
+    public static function run(string $class, string $method, array $args, ?string $module, string $classSlug): Response
+    {
+        self::boot();
         self::cleanGlobals();
 
+        // Same level as CodeIgniter's production mode. Laravel would otherwise turn every
+        // undefined index in the legacy code into a fatal exception.
+        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+
         self::$services = [
-            'config' => new Config($baseUrl),
+            'config' => new Config(rtrim(request()->getSchemeAndHttpHost().request()->getBasePath(), '/').'/'),
             'lang' => new Lang(),
             'input' => new Input(),
             'uri' => new Uri(),
@@ -54,14 +58,8 @@ class Runtime
             'security' => new Security(),
             'db' => new Builder(),
             'load' => new Loader(),
+            'router' => new Router($module, $classSlug, $method),
         ];
-    }
-
-    public static function run(string $class, string $method, array $args, ?string $module, string $classSlug): Response
-    {
-        self::boot();
-
-        self::$services['router'] = new Router($module, $classSlug, $method);
 
         self::$bufferBase = ob_get_level();
         ob_start();

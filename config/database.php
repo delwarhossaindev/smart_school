@@ -59,7 +59,7 @@ return [
             // The legacy code inserts '' into numeric columns and relies on loose GROUP BY,
             // as CodeIgniter's stricton = FALSE allowed.
             'strict' => false,
-            'engine' => null,
+            'engine' => 'InnoDB',
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA', storage_path('certs/aiven-ca.pem')),
                 // mysqli returned every value as a string, and legacy comparisons depend on it.

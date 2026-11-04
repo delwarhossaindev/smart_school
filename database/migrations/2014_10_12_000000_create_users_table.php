@@ -11,6 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // The application's own users table comes from the schema migration.
+        if (Schema::hasTable('users')) {
+            return;
+        }
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -27,6 +32,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        // Never drop the application's users table on a rollback.
+        if (Schema::hasColumn('users', 'remember_token')) {
+            Schema::dropIfExists('users');
+        }
     }
 };
