@@ -56,10 +56,15 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            // The legacy code inserts '' into numeric columns and relies on loose GROUP BY,
+            // as CodeIgniter's stricton = FALSE allowed.
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA', storage_path('certs/aiven-ca.pem')),
+                // mysqli returned every value as a string, and legacy comparisons depend on it.
+                PDO::ATTR_EMULATE_PREPARES => true,
+                PDO::ATTR_STRINGIFY_FETCHES => true,
             ]) : [],
         ],
 
