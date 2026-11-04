@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340" role="img" aria-label="Request flow: request, StripUrlSuffix, routes/legacy.php, LegacyDispatcher, App\Legacy\Runtime, controller action, Laravel response">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5 0 10z" fill="#C98A00"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="340" rx="18" fill="#17352C"/>
+
+  <!-- Connectors -->
+  <g fill="none" stroke="#C98A00" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M246 95h24"/>
+    <path d="M488 95h24"/>
+    <path d="M730 95h24"/>
+    <path d="M863 141v28H137v21"/>
+    <path d="M246 236h24"/>
+    <path d="M488 236h24"/>
+  </g>
+
+  <g font-family="'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle">
+    <!-- Row 1 -->
+    <g>
+      <rect x="28" y="50" width="218" height="90" rx="12" fill="#F5C542"/>
+      <text x="137" y="88" font-size="21" font-weight="700" fill="#17352C">Request</text>
+      <text x="137" y="115" font-size="15" fill="#17352C">/academic/classes/index.html</text>
+    </g>
+    <g>
+      <rect x="270" y="50" width="218" height="90" rx="12" fill="#F7F4E9"/>
+      <text x="379" y="88" font-family="Consolas, Menlo, monospace" font-size="19" font-weight="700" fill="#17352C">StripUrlSuffix</text>
+      <text x="379" y="115" font-size="15" fill="#3E5A50">removes .html</text>
+    </g>
+    <g>
+      <rect x="512" y="50" width="218" height="90" rx="12" fill="#F7F4E9"/>
+      <text x="621" y="88" font-family="Consolas, Menlo, monospace" font-size="19" font-weight="700" fill="#17352C">routes/legacy.php</text>
+      <text x="621" y="115" font-size="15" fill="#3E5A50">matches the route</text>
+    </g>
+    <g>
+      <rect x="754" y="50" width="218" height="90" rx="12" fill="#F7F4E9"/>
+      <text x="863" y="88" font-family="Consolas, Menlo, monospace" font-size="19" font-weight="700" fill="#17352C">LegacyDispatcher</text>
+      <text x="863" y="115" font-size="15" fill="#3E5A50">picks the controller</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g>
+      <rect x="28" y="191" width="218" height="90" rx="12" fill="#F7F4E9"/>
+      <text x="137" y="229" font-family="Consolas, Menlo, monospace" font-size="19" font-weight="700" fill="#17352C">Legacy\Runtime</text>
+      <text x="137" y="256" font-size="15" fill="#3E5A50">builds db, load, session</text>
+    </g>
+    <g>
+      <rect x="270" y="191" width="218" height="90" rx="12" fill="#F7F4E9"/>
+      <text x="379" y="229" font-size="21" font-weight="700" fill="#17352C">Controller action</text>
+      <text x="379" y="256" font-size="15" fill="#3E5A50">runs the module's code</text>
+    </g>
+    <g>
+      <rect x="512" y="191" width="218" height="90" rx="12" fill="#F5C542"/>
+      <text x="621" y="229" font-size="21" font-weight="700" fill="#17352C">Laravel response</text>
+      <text x="621" y="256" font-size="15" fill="#17352C">sent to the browser</text>
+    </g>
+  </g>
+</svg>

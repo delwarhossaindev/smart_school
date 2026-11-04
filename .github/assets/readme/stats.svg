@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 132" width="1000" height="132" role="img" aria-label="28 module groups, 100 database tables, 6 payment gateways, 13 SMS gateways">
+  <g font-family="'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle">
+    <g>
+      <rect x="2" y="2" width="235" height="128" rx="16" fill="#17352C"/>
+      <text x="119.500" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#F5C542">28</text>
+      <text x="119.500" y="108" font-size="19" fill="#F7F4E9">module groups</text>
+    </g>
+    <g>
+      <rect x="255" y="2" width="235" height="128" rx="16" fill="#17352C"/>
+      <text x="372.500" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#F5C542">100</text>
+      <text x="372.500" y="108" font-size="19" fill="#F7F4E9">database tables</text>
+    </g>
+    <g>
+      <rect x="508" y="2" width="235" height="128" rx="16" fill="#17352C"/>
+      <text x="625.500" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#F5C542">6</text>
+      <text x="625.500" y="108" font-size="19" fill="#F7F4E9">payment gateways</text>
+    </g>
+    <g>
+      <rect x="761" y="2" width="235" height="128" rx="16" fill="#17352C"/>
+      <text x="878.500" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#F5C542">13</text>
+      <text x="878.500" y="108" font-size="19" fill="#F7F4E9">SMS gateways</text>
+    </g>
+  </g>
+</svg>
