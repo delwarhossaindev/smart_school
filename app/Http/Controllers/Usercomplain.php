@@ -93,7 +93,7 @@ class Usercomplain extends \App\Legacy\MY_Controller {
             $condition['branch_id']  = $this->session->userdata('branch_id');
         }
         
-        $this->data['complain_types'] = $this->complain->get_list('complain_types', $condition, '','', '', 'id', 'ASC');
+        $this->data['complain_types'] = $this->complain->get_list('complain_types', array('status' => 1), '','', '', 'id', 'ASC');
         $this->data['complains'] = $this->complain->get_complain_list();  
         $this->data['schools'] = $this->schools;
         $this->data['add'] = TRUE;
@@ -157,7 +157,7 @@ class Usercomplain extends \App\Legacy\MY_Controller {
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $condition['branch_id']  = $this->session->userdata('branch_id');
         }        
-        $this->data['complain_types'] = $this->complain->get_list('complain_types', $condition, '','', '', 'id', 'ASC');
+        $this->data['complain_types'] = $this->complain->get_list('complain_types', array('status' => 1), '','', '', 'id', 'ASC');
         $this->data['complains'] = $this->complain->get_complain_list();  
         
       

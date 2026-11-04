@@ -128,7 +128,7 @@
                                         <input type="hidden" name="total_obtain_mark[<?php echo $obj->id; ?>]" value="<?php echo $mark->obtain_mark; ?>" />
                                     </td>                                
                                     <td>
-                                        <input class="form-control col-md-7 col-xs-12 " type="text" name="avg_grade_point[<?php echo $obj->id; ?>]" value="<?php echo @number_format($mark->total_point/$mark->total_subject,2); ?>" style="width: 60px;"  autocomplete="off"/>
+                                        <input class="form-control col-md-7 col-xs-12 " type="text" name="avg_grade_point[<?php echo $obj->id; ?>]" value="<?php echo (empty($mark->total_subject) ? number_format(0, 2) : number_format($mark->total_point / $mark->total_subject, 2)); ?>" style="width: 60px;"  autocomplete="off"/>
                                     </td>  
                                     <td>
                                         <select class="form-control col-md-7 col-xs-12" name="grade_id[<?php echo $obj->id; ?>]"  required="required">                                

@@ -70,8 +70,9 @@ class Lecture_Model extends \App\Legacy\MY_Model {
     } 
     
     public function get_teacher_by_subject($branch_id = null, $class_id = null){
-        
+
         $this->db->select('T.*');
+        $this->db->from('teachers AS T');
         $this->db->join('subjects AS S', 'S.teacher_id = T.id', 'left');
         $this->db->join('schools AS SC', 'SC.id = T.branch_id', 'left');
         

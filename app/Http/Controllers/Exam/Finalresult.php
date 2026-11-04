@@ -176,7 +176,7 @@ class Finalresult extends \App\Legacy\MY_Controller {
             
             $data = $condition;
 
-            if (count($_POST['students']) > 0) {
+            if (!empty($_POST['students'])) {
 
                 foreach ($_POST['students'] as $key => $value) {
 

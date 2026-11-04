@@ -43,7 +43,7 @@ class Complain extends \App\Legacy\MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){ 
             $condition['branch_id'] = $this->session->userdata('branch_id');     
-            $this->data['complain_types'] = $this->complain->get_list('complain_types', $condition, '','', '', 'id', 'ASC');
+            $this->data['complain_types'] = $this->complain->get_list('complain_types', array('status' => 1), '','', '', 'id', 'ASC');
             $this->data['classes'] = $this->complain->get_list('classes', array('status' => 1,'branch_id'=>$condition['branch_id']), '', '', '', 'id', 'ASC');
         }        
         
@@ -104,7 +104,7 @@ class Complain extends \App\Legacy\MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){ 
             $condition['branch_id'] = $this->session->userdata('branch_id');     
-            $this->data['complain_types'] = $this->complain->get_list('complain_types', $condition, '','', '', 'id', 'ASC');
+            $this->data['complain_types'] = $this->complain->get_list('complain_types', array('status' => 1), '','', '', 'id', 'ASC');
             $this->data['classes'] = $this->complain->get_list('classes', array('status' => 1), '', '', '', 'id', 'ASC');
         } 
         
@@ -173,7 +173,7 @@ class Complain extends \App\Legacy\MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){ 
             $condition['branch_id'] = $this->session->userdata('branch_id');     
-            $this->data['complain_types'] = $this->complain->get_list('complain_types', $condition, '','', '', 'id', 'ASC');
+            $this->data['complain_types'] = $this->complain->get_list('complain_types', array('status' => 1), '','', '', 'id', 'ASC');
             $this->data['classes'] = $this->complain->get_list('classes', array('status' => 1), '', '', '', 'id', 'ASC');
         } 
         

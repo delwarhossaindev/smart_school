@@ -102,7 +102,7 @@ Route::ci('announcement/notice', \App\Http\Controllers\Announcement\Notice::clas
 // Assignment module
 Route::ci('assignment/assignment', \App\Http\Controllers\Assignment\Assignment::class, ['index', 'add', 'edit', 'view', 'get_single_assignment', 'assignment', 'delete', 'get_assignment_by_section'], 'assignment', 'assignment');
 Route::ci('assignment/submission', \App\Http\Controllers\Assignment\Submission::class, ['index', 'add', 'edit', 'get_single_submission', 'submission', 'delete'], 'assignment', 'submission');
-Route::ci('assignment', \App\Http\Controllers\Assignment\Assignment::class, ['index', 'add', 'edit', 'view', 'get_single_assignment', 'assignment', 'delete', 'get_assignment_by_section'], 'assignment', 'assignment');
+Route::ci('assignment', \App\Http\Controllers\Assignment\Assignment::class, ['index', 'add', 'edit', 'view', 'get_single_assignment', 'delete', 'get_assignment_by_section'], 'assignment', 'assignment');
 
 // Attendance module
 Route::ci('attendance/absentemail', \App\Http\Controllers\Attendance\Absentemail::class, ['index', 'add', 'view', 'get_single_email', 'delete'], 'attendance', 'absentemail');

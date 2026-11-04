@@ -405,7 +405,7 @@
                                    <td><?php echo $mark->viva_obtain; ?></td>
                                    <td><?php echo $mark->written_mark+$mark->tutorial_mark+$mark->practical_mark+$mark->viva_mark; ?></td>
                                    <td><?php echo $obtain_total_mark; ?></td>
-                                   <td><?php echo @number_format($mark->point/$mark->total_subject,2); ?></td>                               
+                                   <td><?php echo (empty($mark->total_subject) ? number_format(0, 2) : number_format($mark->point / $mark->total_subject, 2)); ?></td>                               
                                    <td><?php echo @$exam->name; ?></td>
                                    <td><?php echo $exam_lh->lowest; ?></td>                               
                                    <td><?php echo $exam_lh->height; ?></td>                               

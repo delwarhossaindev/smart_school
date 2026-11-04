@@ -41,6 +41,11 @@ class LegacyApplicationTest extends TestCase
         $this->get('/academic/nosuchcontroller/index')->assertNotFound();
     }
 
+    public function test_a_method_named_like_a_controller_is_not_routable_under_the_module(): void
+    {
+        $this->get('/assignment/assignment/1')->assertNotFound();
+    }
+
     public function test_builder_compiles_select_like_codeigniter(): void
     {
         $sql = (new Builder())
