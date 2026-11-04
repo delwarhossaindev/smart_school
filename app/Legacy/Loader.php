@@ -50,7 +50,8 @@ class Loader
             get_instance()->output->append_output($html);
         }
 
-        return $this;
+        // Returns nothing, like the HMVC loader: the legacy code has many "echo $this->load->view()".
+        return null;
     }
 
     public function vars($vars, $value = '')

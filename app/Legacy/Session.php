@@ -38,9 +38,19 @@ class Session
         }
     }
 
+    /**
+     * Only returns values stored as flash data. error() and success() keep the same key
+     * names in plain userdata, and those must not show up here.
+     */
     public function flashdata($key = null)
     {
-        return $key === null ? session()->all() : session()->get($key);
+        $flashKeys = array_merge(session()->get('_flash.old', []), session()->get('_flash.new', []));
+
+        if ($key !== null) {
+            return in_array($key, $flashKeys, true) ? session()->get($key) : null;
+        }
+
+        return session()->only($flashKeys);
     }
 
     public function sess_destroy()
