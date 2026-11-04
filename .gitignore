@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 /application
 /smartinternation_school.sql
+/public/assets/uploads/**
+!/public/assets/uploads/**/
+!/public/assets/uploads/**/.gitkeep
