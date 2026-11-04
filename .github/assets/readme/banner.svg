@@ -13,11 +13,11 @@
       <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
     <style>
-      .underline { stroke-dasharray: 560; }
+      .underline { stroke-dasharray: 600; }
       @media (prefers-reduced-motion: no-preference) {
         .underline { animation: draw 1.6s ease-out both; }
       }
-      @keyframes draw { from { stroke-dashoffset: 560; } to { stroke-dashoffset: 0; } }
+      @keyframes draw { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
     </style>
   </defs>
 
@@ -55,8 +55,8 @@
   </g>
 
   <!-- Title -->
-  <text x="228" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="#F7F4E9">Smart School</text>
-  <path class="underline" d="M232 192c120-9 330-11 544-3" fill="none" stroke="#F5C542" stroke-width="6" stroke-linecap="round"/>
+  <text x="240" y="166" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700" fill="#F7F4E9">Smart School</text>
+  <path class="underline" d="M244 190c120-9 340-11 586-3" fill="none" stroke="#F5C542" stroke-width="6" stroke-linecap="round"/>
 
   <text x="84" y="264" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" fill="#F7F4E9">One platform to run every branch of your school.</text>
   <text x="84" y="316" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="23" fill="#F7F4E9" opacity="0.72">Academics  ·  Exams  ·  Attendance  ·  Finance  ·  Library  ·  Transport</text>
