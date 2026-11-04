@@ -5,11 +5,12 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
  * The records the application needs before anyone can log in, for a database created by
- * the migrations without a dump. Run it with: php artisan db:seed --class=ApplicationSeeder
+ * the migrations without a dump. Run it with: php artisan db:seed
  */
 class ApplicationSeeder extends Seeder
 {
@@ -34,7 +35,8 @@ class ApplicationSeeder extends Seeder
     {
         // Most of the tables are MyISAM, so a transaction could not undo a second run.
         if (DB::table('users')->exists() || DB::table('global_setting')->exists()) {
-            $this->command->warn('The database already has users or settings. Nothing was seeded.');
+            $this->command->warn('The database already has users or settings. Only the Spatie tables were seeded.');
+            $this->call(RolePermissionSeeder::class);
 
             return;
         }
@@ -106,8 +108,7 @@ class ApplicationSeeder extends Seeder
             'role_id' => 1,
             'branch_id' => 0,
             'username' => 'superadmin',
-            // Auth::index compares md5 hashes.
-            'password' => md5($password),
+            'password' => Hash::make($password),
             'status' => 1,
             'last_logged_in' => $now,
         ] + $stamps);
@@ -122,6 +123,8 @@ class ApplicationSeeder extends Seeder
             'dob' => '2000-01-01',
             'status' => 1,
         ] + $stamps);
+
+        $this->call(RolePermissionSeeder::class);
 
         $this->command->info('Seeded. Log in at /login');
         $this->command->info('Username: superadmin');
@@ -148,13 +151,13 @@ class ApplicationSeeder extends Seeder
     }
 
     /**
-     * has_permission() reads resources/legacy/custom.php, which MY_Controller::update_config
-     * writes from the privileges table. This fills the tables back in from that file.
+     * The application's modules and operations, and each default role's access to them.
+     * RolePermissionSeeder turns the privileges rows into Spatie permissions.
      */
     private function seedPermissions(array $stamps): void
     {
         $config = [];
-        require resource_path('legacy/custom.php');
+        require database_path('seeders/data/permissions.php');
 
         $privileges = [];
 

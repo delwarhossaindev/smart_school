@@ -16,12 +16,7 @@ if (!function_exists('_d')) {
 if (!function_exists('logged_in_user_id')) {
 
     function logged_in_user_id() {
-        $logged_in_id = 0;
-        $CI = & get_instance();
-        if ($CI->session->userdata('id') && $CI->session->userdata('role_id')):
-            $logged_in_id = $CI->session->userdata('id');
-        endif;
-        return $logged_in_id;
+        return auth()->id() ?: 0;
     }
 
 }
@@ -1342,30 +1337,6 @@ if (!function_exists('get_invoice_paid_amount')) {
     }
 }
 
-if (!function_exists('get_operation_by_module')) {
-
-    function get_operation_by_module($module_id) {
-        $ci = & get_instance();
-        $ci->db->select('O.*');
-        $ci->db->from('operations AS O');
-        $ci->db->where('O.module_id', $module_id);
-        return $ci->db->get()->result();
-    }
-
-}
-
-if (!function_exists('get_permission_by_operation')) {
-
-    function get_permission_by_operation($role_id, $operation_id) {
-        $ci = & get_instance();
-        $ci->db->select('P.*');
-        $ci->db->from('privileges AS P');
-        $ci->db->where('P.role_id', $role_id);
-        $ci->db->where('P.operation_id', $operation_id);
-        return $ci->db->get()->row();
-    }
-}
-
 if (!function_exists('get_school_list')) {
 
     function get_school_list() {
@@ -1643,26 +1614,8 @@ if (!function_exists('check_permission')) {
     function check_permission($action) {
 
         $ci = & get_instance();
-        $role_id = $ci->session->userdata('role_id');
-        $operation_slug = $ci->router->fetch_class();
-        $module_slug = $ci->router->fetch_module();
 
-        if ($module_slug == '') {
-            $module_slug = $operation_slug;
-        }
-
-        $module_slug = 'my_' . $module_slug;
-
-        $data = $ci->config->item($operation_slug, $module_slug);
-
-        $result = $data[$role_id];
-        if (!empty($result)) {
-            $array = explode('|', $result);
-            if (!$array[$action]) {
-                error($ci->lang->line('permission_denied'));
-                 ci_redirect('dashboard/index');
-            }
-        } else {
+        if (!has_permission($action, $ci->router->fetch_module(), $ci->router->fetch_class())) {
             error($ci->lang->line('permission_denied'));
             ci_redirect('dashboard/index');
         }
@@ -1676,25 +1629,9 @@ if (!function_exists('has_permission')) {
 
     function has_permission($action, $module_slug = null, $operation_slug = null) {
 
-        $ci = & get_instance();
-        $role_id = $ci->session->userdata('role_id');
+        $user = auth()->user();
 
-        if ($module_slug == '') {
-            $module_slug = $operation_slug;
-        }
-
-        $module_slug = 'my_' . $module_slug;
-
-        $data = $ci->config->item($operation_slug, $module_slug);
-
-        $result = @$data[$role_id];
-
-        if (!empty($result)) {
-            $array = explode('|', $result);
-            return $array[$action];
-        } else {
-            return FALSE;
-        }
+        return $user ? $user->checkPermissionTo(\App\Support\PermissionName::for($action, $module_slug, $operation_slug)) : FALSE;
     }
 
 }

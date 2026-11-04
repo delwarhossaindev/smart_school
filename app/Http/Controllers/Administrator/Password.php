@@ -53,7 +53,7 @@ class Password extends \App\Legacy\MY_Controller {
             $this->form_validation->set_rules('conf_password', $this->lang->line('password').' '.$this->lang->line('confirm'), 'trim|required|matches[password]');
             
              if ($this->form_validation->run() === TRUE) {
-                $data['password']      = md5($this->input->post('password'));
+                $data['password']      = bcrypt($this->input->post('password'));
                 $data['temp_password'] = base64_encode($this->input->post('password'));
                 $data['modified_at'] = date('Y-m-d H:i:s');
                 $data['modified_by'] = logged_in_user_id();

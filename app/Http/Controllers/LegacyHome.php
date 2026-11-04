@@ -20,6 +20,6 @@ class LegacyHome
             return Runtime::run(Web\Web::class, 'index', [], 'web', 'web');
         }
 
-        return Runtime::run(Welcome::class, 'index', [], null, 'welcome');
+        return redirect()->route('login');
     }
 }

@@ -9,7 +9,7 @@ class LegacyApplicationTest extends TestCase
 {
     public function test_login_page_renders_with_and_without_the_url_suffix(): void
     {
-        foreach (['/auth/login', '/auth/login.html'] as $uri) {
+        foreach (['/login', '/login.html'] as $uri) {
             $this->get($uri)->assertOk()->assertSee('id="login"', false);
         }
     }
@@ -18,7 +18,7 @@ class LegacyApplicationTest extends TestCase
     {
         $this->get('/academic/classes/index.html')
             ->assertStatus(307)
-            ->assertRedirectContains('auth/login');
+            ->assertRedirectContains('login');
     }
 
     public function test_extra_segments_are_routed_to_the_controller_action(): void

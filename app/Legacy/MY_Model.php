@@ -231,7 +231,7 @@ class MY_Model extends \App\Legacy\CI_Model {
         $data = array();
         $data['branch_id']  = $this->input->post('branch_id') ? $this->input->post('branch_id') : 0;
         $data['role_id']    = $this->input->post('role_id');
-        $data['password']   = md5($this->input->post('password'));
+        $data['password']   = bcrypt($this->input->post('password'));
         $data['temp_password'] = base64_encode($this->input->post('password'));
         $data['username']   = $this->input->post('username');
         $data['created_at'] = date('Y-m-d H:i:s');
@@ -259,7 +259,7 @@ class MY_Model extends \App\Legacy\CI_Model {
         $data = array();
         $data['branch_id']  = $this->input->post('branch_id') ? $this->input->post('branch_id') : 0;
         $data['role_id']    = $info['role_id'];
-        $data['password']   = md5($info['password']);
+        $data['password']   = bcrypt($info['password']);
         $data['temp_password'] = base64_encode($info['password']);
         $data['username']   = $info['username'];
         $data['created_at'] = date('Y-m-d H:i:s');

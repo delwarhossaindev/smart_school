@@ -102,10 +102,10 @@
                                     <li><a href="<?php echo site_url('administrator/year/index'); ?>"> <?php echo lang('academic_year'); ?></a></li>
                                  <?php } ?>
                                 <?php if(has_permission(VIEW, 'administrator', 'role')){ ?>   
-                                    <li><a href="<?php echo site_url('administrator/role/index'); ?>"> <?php echo lang('user_role'); ?> (ACL)</a></li> 
+                                    <li><a href="<?php echo route('roles.index'); ?>"> <?php echo lang('user_role'); ?> (ACL)</a></li> 
                                 <?php } ?>
                                 <?php if(has_permission(VIEW, 'administrator', 'permission')){ ?> 
-                                    <li><a href="<?php echo site_url('administrator/permission/index'); ?>"><?php echo lang('role_permission'); ?> (ACL)</a></li> 
+                                    <li><a href="<?php echo route('permissions.index'); ?>"><?php echo lang('role_permission'); ?> (ACL)</a></li> 
                                  <?php } ?>
                                 <?php if(has_permission(VIEW, 'administrator', 'superadmin')){ ?>   
                                     <li><a href="<?php echo site_url('administrator/superadmin/index'); ?>"> <?php echo lang('manage_super_admin'); ?></a></li> 
@@ -720,7 +720,7 @@
                                 <?php } ?>
                             <?php } ?>
                                 
-                            <li><a href="<?php echo site_url('auth/logout'); ?>"><?php echo lang('logout'); ?></a></li>
+                            <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><?php echo lang('logout'); ?></a></li>
                         </ul>
                     </li>  
                     

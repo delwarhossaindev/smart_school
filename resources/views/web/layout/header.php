@@ -35,7 +35,7 @@
                         </div>
                         <div class="hta-box">
                             <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                            <a class="text" href="<?php echo site_url('auth/logout'); ?>"><?php echo lang('logout'); ?></a>
+                            <a class="text" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><?php echo lang('logout'); ?></a>
                         </div>
                     <?php }else{ ?>
                         <div class="hta-box">

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::any('/', \App\Http\Controllers\LegacyHome::class);
 
 // Custom routes
-Route::ciCustom('login', \App\Http\Controllers\Welcome::class, 'index', [], NULL, 'welcome');
 Route::ciCustom('branch/(:any)', \App\Http\Controllers\Web\Web::class, 'branch', ['$1'], 'web', 'web');
 Route::ciCustom('(:any)/about', \App\Http\Controllers\Web\Web::class, 'about', [], 'web', 'web');
 Route::ciCustom('(:any)', \App\Http\Controllers\Web\Web::class, 'index', ['$1'], 'web', 'web');
@@ -35,19 +34,14 @@ Route::ciCustom('(:any)/contact', \App\Http\Controllers\Web\Web::class, 'contact
 Route::ciCustom('(:any)/admission-online', \App\Http\Controllers\Web\Web::class, 'admission_online', [], 'web', 'web');
 Route::ciCustom('(:any)/admission-form', \App\Http\Controllers\Web\Web::class, 'admission_form', [], 'web', 'web');
 Route::ciCustom('(:any)/page/(:any)', \App\Http\Controllers\Web\Web::class, 'page', ['$1'], 'web', 'web');
-Route::ciCustom('auth/login', \App\Http\Controllers\Welcome::class, 'index', [], NULL, 'welcome');
-Route::ciCustom('auth/forgot', \App\Http\Controllers\Auth::class, 'forgot', [], NULL, 'auth');
-Route::ciCustom('auth/reset/(:any)', \App\Http\Controllers\Auth::class, 'reset', ['$1'], NULL, 'auth');
 
 // Application controllers
 Route::ci('ajax', \App\Http\Controllers\Ajax::class, ['index', 'get_user_by_role', 'get_tag_by_role', 'update_user_status', 'get_student_by_class', 'get_section_by_class', 'get_student_by_section', 'get_subject_by_class', 'get_assignment_by_subject', 'get_guardian_by_id', 'get_room_by_hostel', 'get_user_list_by_type', 'get_designation_by_school', 'get_salary_grade_by_school', 'get_teacher_by_school', 'get_employee_by_school', 'get_guardian_by_school', 'get_discount_by_school', 'get_student_type_by_school', 'get_class_by_school', 'get_exam_by_school', 'get_gallery_by_school', 'get_leave_type_by_school', 'get_visitor_purpose_by_school', 'get_complain_type_by_school', 'get_user_single_payment', 'get_school_info_by_id', 'get_sms_gateways', 'get_email_template_by_role', 'get_email_template_by_id', 'get_sms_template_by_role', 'update_student_status_type'], null, 'ajax');
-Route::ci('auth', \App\Http\Controllers\Auth::class, ['index', 'logout', 'forgot', 'forgotpass', 'reset', 'resetpass'], null, 'auth');
 Route::ci('dashboard', \App\Http\Controllers\Dashboard::class, ['index', 'get_search'], null, 'dashboard');
 Route::ci('profile', \App\Http\Controllers\Profile::class, ['index', 'update', 'password'], null, 'profile');
 Route::ci('theme', \App\Http\Controllers\Theme::class, ['index', 'activate'], null, 'theme');
 Route::ci('usercomplain', \App\Http\Controllers\Usercomplain::class, ['index', 'add', 'edit', 'get_single_complain', 'delete'], null, 'usercomplain');
 Route::ci('userleave', \App\Http\Controllers\Userleave::class, ['index', 'add', 'edit', 'get_single_leave_application', 'leave_to', 'attachment', 'delete'], null, 'userleave');
-Route::ci('welcome', \App\Http\Controllers\Welcome::class, ['index'], null, 'welcome');
 
 // Academic module
 Route::ci('academic/classes', \App\Http\Controllers\Academic\Classes::class, ['index', 'add', 'edit', 'name', 'delete'], 'academic', 'classes');
@@ -82,8 +76,6 @@ Route::ci('administrator/feedback', \App\Http\Controllers\Administrator\Feedback
 Route::ci('administrator/openinghour', \App\Http\Controllers\Administrator\Openinghour::class, ['index', 'add', 'edit', 'get_single_opening_hour', 'branch_id', 'delete'], 'administrator', 'openinghour');
 Route::ci('administrator/password', \App\Http\Controllers\Administrator\Password::class, ['index'], 'administrator', 'password');
 Route::ci('administrator/payment', \App\Http\Controllers\Administrator\Payment::class, ['index', 'add', 'edit', 'view', 'get_single_payment', 'branch_id', 'delete'], 'administrator', 'payment');
-Route::ci('administrator/permission', \App\Http\Controllers\Administrator\Permission::class, ['index'], 'administrator', 'permission');
-Route::ci('administrator/role', \App\Http\Controllers\Administrator\Role::class, ['index', 'add', 'edit', 'name', 'delete'], 'administrator', 'role');
 Route::ci('administrator/school', \App\Http\Controllers\Administrator\School::class, ['index', 'add', 'edit', 'get_single_school', 'branch_name', 'branch_url', 'logo', 'frontend_logo', 'delete'], 'administrator', 'school');
 Route::ci('administrator/setting', \App\Http\Controllers\Administrator\Setting::class, ['index', 'add', 'edit', 'logo', 'favicon_icon'], 'administrator', 'setting');
 Route::ci('administrator/sms', \App\Http\Controllers\Administrator\Sms::class, ['index', 'add', 'edit', 'view', 'get_single_sms', 'branch_id', 'delete'], 'administrator', 'sms');

@@ -18,10 +18,10 @@
     | <a href="<?php echo site_url('administrator/year/index'); ?>"><?php echo lang('academic_year'); ?></a>
 <?php } ?>                  
 <?php if(has_permission(VIEW, 'administrator', 'role')){ ?>
-   | <a href="<?php echo site_url('administrator/role/index'); ?>"><?php echo lang('user_role'); ?></a>
+   | <a href="<?php echo route('roles.index'); ?>"><?php echo lang('user_role'); ?></a>
 <?php } ?>
 <?php if(has_permission(VIEW, 'administrator', 'permission')){ ?>
-   | <a href="<?php echo site_url('administrator/permission/index'); ?>"><?php echo lang('role_permission'); ?></a>                   
+   | <a href="<?php echo route('permissions.index'); ?>"><?php echo lang('role_permission'); ?></a>                   
 <?php } ?>
 <?php if(has_permission(VIEW, 'administrator', 'superadmin')){ ?>
    | <a href="<?php echo site_url('administrator/superadmin/index'); ?>"><?php echo lang('super_admin'); ?></a>                

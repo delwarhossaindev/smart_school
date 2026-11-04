@@ -39,7 +39,7 @@
                         <ul class="dropdown-menu dropdown-usermenu pull-right">
                             <li><a href="<?php echo site_url('profile/index'); ?>"> <?php echo lang('profile'); ?></a></li>
                             <li><a href="<?php echo site_url('profile/password'); ?>"><?php echo lang('reset_password'); ?></a></li>
-                            <li><a href="<?php echo site_url('auth/logout'); ?>"><i class="fa fa-sign-out pull-right"></i> <?php echo lang('logout'); ?></a></li>
+                            <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i> <?php echo lang('logout'); ?></a></li>
                         </ul>
                     </li>
                     

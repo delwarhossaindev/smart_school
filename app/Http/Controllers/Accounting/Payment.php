@@ -25,7 +25,6 @@ class Payment extends \App\Legacy\MY_Controller {
          $this->load->model('Payment_Model', 'payment', true);
          $this->load->model('Invoice_Model', 'invoice', true);
          
-         $this->config->load('custom');
          $this->load->library("paypal");
          $this->load->library("CCAencrypt");
          $this->load->helper('paytm');

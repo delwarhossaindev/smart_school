@@ -23,7 +23,6 @@ class Gateway extends \App\Legacy\CI_Controller {
         $this->load->model('Payment_Model', 'payment', true);
         $this->load->model('Invoice_Model', 'invoice', true);
 
-        $this->config->load('custom');
         $this->load->library("paypal");
     }
 

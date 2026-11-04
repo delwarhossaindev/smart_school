@@ -13,7 +13,7 @@
 
 <p align="center">
   A multi-branch school management system with a public website for each branch.<br>
-  Migrated from CodeIgniter (HMVC) to Laravel 10.
+  Migrated from CodeIgniter (HMVC) to Laravel 10, and being rewritten as native Laravel module by module.
 </p>
 
 <p align="center">
@@ -142,18 +142,21 @@ Set the `DB_*` values in `.env`. The example file uses port `3307` and the datab
 
 <kbd>STEP 3</kbd> **Create the database and restore the data**
 
-The dump is not in this repository, so get `smartinternation_school.sql` from a project maintainer and put it in the project root.
+The dump is not in this repository, so get `smartinternation_school.sql` from a project maintainer and put it in the project root. To start without real data, create an empty database and skip the second command.
 
 ```bash
 mysql -h 127.0.0.1 -P 3307 -u root -e "CREATE DATABASE smartinternation_school"
 mysql -h 127.0.0.1 -P 3307 -u root smartinternation_school -e "source smartinternation_school.sql"
 ```
 
-<kbd>STEP 4</kbd> **Run the migrations**
+<kbd>STEP 4</kbd> **Run the migrations and the seeders**
 
 ```bash
 php artisan migrate
+php artisan db:seed
 ```
+
+The seeders print the `superadmin` password once, so note it down.
 
 <kbd>STEP 5</kbd> **Open the application**
 
@@ -166,17 +169,24 @@ The login page is at `/login`.
 
 ### Database notes
 
-> [!WARNING]
-> **Do not run `php artisan db:seed`.** `RolePermissionSeeder` expects the Spatie permission tables and a `users` table with `name` and `email` columns. Neither exists here. The application's roles and permissions are stored in its own tables and managed under `administrator/role` and `administrator/permission`.
-
-- **With a dump:** the migration sees the existing tables and leaves them alone. Rolling it back does not drop them.
-- **Without a dump:** `php artisan migrate` creates all the tables from `database/schema/application.sql`, but that file contains no data. There is no user to log in with until you run `php artisan db:seed --class=ApplicationSeeder`, which creates the settings, roles, permissions and a `superadmin` account, and prints its password.
+- **With a dump:** the migration sees the existing tables and leaves them alone. Rolling it back does not drop them. `php artisan db:seed` only fills the Spatie tables from the dump's `privileges`, `roles` and `users` rows.
+- **Without a dump:** `php artisan migrate` creates all the tables from `database/schema/application.sql`, but that file contains no data. `php artisan db:seed` then creates the settings, one branch, an academic year, the roles and permissions, and a `superadmin` account. Classes, students and other school records stay empty.
+- **Seeding again** is safe. `ApplicationSeeder` does nothing if users or settings exist, and a Spatie role that already has permissions keeps them.
 
 <a id="architecture"></a>
 
 ## <img src=".github/assets/readme/icons/architecture.svg" width="30" align="top" alt=""> Architecture
 
-The original controllers, models and views still run almost unchanged, on top of a compatibility layer in `app/Legacy`.
+The application is being rewritten as native Laravel one module at a time. Rewritten code and legacy code run side by side and share the session, so each module can move on its own.
+
+| Status | Modules |
+| --- | --- |
+| Native Laravel | Login, logout and password reset; roles and permissions |
+| Legacy | Everything else, including the rest of Administrator and the shared layout |
+
+Authorization is already on [spatie/laravel-permission](https://spatie.be/docs/laravel-permission) for every module, because the legacy `has_permission()` and `check_permission()` helpers call it.
+
+Legacy controllers, models and views still run almost unchanged, on top of a compatibility layer in `app/Legacy`.
 
 <p align="center">
   <img src=".github/assets/readme/request-flow.svg" alt="Request flow: request, StripUrlSuffix, routes/legacy.php, LegacyDispatcher, App\Legacy\Runtime, controller action, Laravel response" width="100%">
@@ -184,13 +194,17 @@ The original controllers, models and views still run almost unchanged, on top of
 
 | Path | Contents |
 | --- | --- |
-| `routes/legacy.php` | All application routes |
+| `routes/web.php` | Routes of the rewritten modules. Loads before `routes/legacy.php` |
+| `routes/legacy.php` | Routes of the legacy modules |
 | `app/Legacy` | The CodeIgniter compatibility layer: base controller and model, loader, query builder, session, input, helpers |
-| `app/Http/Controllers/<Module>` | Controllers, grouped by module |
-| `app/Models/<Module>` | Models, grouped by module |
-| `resources/views/<module>` | Plain PHP views, grouped by module |
+| `app/Legacy/LayoutHost.php` | Renders a Blade page inside the legacy layout |
+| `app/Http/Controllers/<Module>` | Controllers, grouped by module. Rewritten ones are named `*Controller` |
+| `app/Models/<Module>` | Legacy models, grouped by module. Eloquent models are in `app/Models` |
+| `app/Services`, `app/Http/Requests` | Services and form requests of the rewritten modules |
+| `resources/views/<module>` | Views, grouped by module: Blade (`.blade.php`) when rewritten, otherwise plain PHP |
 | `app/Libraries` | Libraries loaded with `$this->load->library()` |
-| `lang/english` | Language files |
+| `lang/english` | Language files, read by `lang()` and by `__()` in Blade |
+| `database/seeders/data/permissions.php` | The default modules, operations and role access for a new database |
 | `public/assets` | CSS, JavaScript, images and uploaded files |
 | `database/schema/application.sql` | The application's table definitions |
 
@@ -200,7 +214,30 @@ The `application` directory, if you have one locally, is the old CodeIgniter cod
 
 ## <img src=".github/assets/readme/icons/development.svg" width="30" align="top" alt=""> Development notes
 
-### Adding a controller action
+### Roles and permissions
+
+Permissions are named `module.operation.action`, where the action is `view`, `add`, `edit` or `delete`:
+
+```php
+Route::get('roles', [RoleController::class, 'index'])->middleware('permission:administrator.role.view');
+```
+
+```blade
+@can('academic.classes.edit') ... @endcan
+```
+
+A Spatie role in `permission_roles` has the same `id` as its row in the application's `roles` table, because the legacy modules read `users.role_id`. Change roles through `RoleController`, which keeps the two tables in step. Legacy modules create users without touching the Spatie tables, so the login assigns a missing role.
+
+The `privileges` table is only read by `RolePermissionSeeder`. Saving the permission page changes the Spatie tables and nothing else.
+
+### Rewriting a legacy module
+
+1. Add routes to `routes/web.php` with the `permission:` middleware, and a redirect from each old URL that people may have saved. Remove its `Route::ci()` line.
+2. Write a `*Controller` with Eloquent or the query builder, and a form request for validation.
+3. Convert the views to Blade, with `@csrf` in every form and `__('key')` for text. Until the layout is rewritten, return the page through `LayoutHost::respond()`.
+4. Add feature tests, then delete the old controller, model and views.
+
+### Adding a legacy controller action
 
 Routes are not discovered automatically. Add the method name to the controller's `Route::ci()` line in `routes/legacy.php`, or the URL returns a 404:
 
@@ -223,7 +260,9 @@ Custom routes come first, and `(:any)` matches any single-segment URL as a schoo
 
 > [!CAUTION]
 > - Routes in the `legacy` middleware group have no CSRF protection, because the old forms and AJAX calls do not send a token.
-> - Passwords are stored as unsalted MD5 hashes, and login depends on that format.
+> - Some legacy pages still store `users.temp_password`, a Base64 copy of the password that anyone with database access can read, and `administrator/usercredential` displays it.
+
+- New passwords are hashed with bcrypt. Older rows may hold MD5 hashes, and `User::checkPassword()` replaces one with bcrypt at the next successful login.
 
 - Notices and warnings are hidden during a legacy request, so an undefined index will not raise an error.
 - Relative paths such as `./assets/uploads/` resolve against `public`, because `Runtime` changes the working directory there.
@@ -236,7 +275,9 @@ Custom routes come first, and `(:any)` matches any single-segment URL as a schoo
 php artisan test
 ```
 
-`phpunit.xml` does not override the database, so the tests use the connection in `.env`.
+The tests run on an in-memory sqlite database set in `phpunit.xml`, and `Tests\TestCase` refuses any other connection, so they cannot touch the database in `.env`. `database/schema/application.sql` is written for MySQL, so `tests/CreatesApplicationSchema.php` creates the tables the tested pages use. Add a table there when a new test needs one.
+
+Most legacy modules have no tests yet, and the tests do not catch MySQL-specific problems, so check those in a browser as well.
 
 ---
 

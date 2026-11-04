@@ -18,4 +18,4 @@
        | <a href="<?php echo site_url('userleave/index'); ?>"><?php echo lang('leave_application'); ?></a>    
    <?php } ?>
 <?php } ?>                
-| <a href="<?php echo site_url('auth/logout'); ?>"><?php echo lang('logout'); ?></a>   
+| <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><?php echo lang('logout'); ?></a>   

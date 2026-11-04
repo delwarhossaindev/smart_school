@@ -1,5 +1,4 @@
-<?php $path = (isset($user)) && !empty($user) ? '../../' : '../'; ?>
-<style type="text/css">   
+<style type="text/css">
 .login_wrapper {
     right: 0px;
     margin: 0px auto;
@@ -145,10 +144,10 @@
 }
 
 
-<?php if(ci()->global_setting->theme_name == 'slate-gray'){ ?>
+@if (($setting->theme_name ?? '') == 'slate-gray')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/slate-gray.jpg);   
+        background: url({{ asset("assets") }}/images/login-screen/slate-gray.jpg);   
         background-color: #2d4157;
     }   
     .login_form{
@@ -170,10 +169,10 @@
         border: .5px solid #2A3F54;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'black'){ ?>
+@elseif (($setting->theme_name ?? '') == 'black')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/black.jpg);   
+        background: url({{ asset("assets") }}/images/login-screen/black.jpg);   
         background-color: #252a2e;
     } 
     .login_form{
@@ -196,10 +195,10 @@
         border: .5px solid #23282d;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'light-sea-green'){ ?>
+@elseif (($setting->theme_name ?? '') == 'light-sea-green')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/light-sea-green.jpg);  
+        background: url({{ asset("assets") }}/images/login-screen/light-sea-green.jpg);  
         background-color: #21b3aa;
     } 
     .login_form{
@@ -222,10 +221,10 @@
         border: .5px solid #20B2AA;     
    } 
     
-<?php }elseif(ci()->global_setting->theme_name == 'medium-purple'){ ?>
+@elseif (($setting->theme_name ?? '') == 'medium-purple')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/medium-purple.jpg);    
+        background: url({{ asset("assets") }}/images/login-screen/medium-purple.jpg);    
         background-color: #9470da;
     } 
     .login_form{
@@ -247,10 +246,10 @@
         border: .5px solid #6345a0;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'navy-blue'){ ?>
+@elseif (($setting->theme_name ?? '') == 'navy-blue')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/navy-blue.jpg); 
+        background: url({{ asset("assets") }}/images/login-screen/navy-blue.jpg); 
         background-color: #041b54;
     }
     .login_form{
@@ -272,10 +271,10 @@
         border: .5px solid #1b4bbb;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'rebecca-purple'){ ?>
+@elseif (($setting->theme_name ?? '') == 'rebecca-purple')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/rebecca-purple.jpg);
+        background: url({{ asset("assets") }}/images/login-screen/rebecca-purple.jpg);
         background-color: #683599;
     } 
     .login_form{
@@ -297,10 +296,10 @@
         border: .5px solid #663399;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'red'){ ?>
+@elseif (($setting->theme_name ?? '') == 'red')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/red.jpg);       
+        background: url({{ asset("assets") }}/images/login-screen/red.jpg);       
         background-color: #e90101;
     }
     .login_form{
@@ -322,10 +321,10 @@
         border: .5px solid #f31717;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'dodger-blue'){ ?>
+@elseif (($setting->theme_name ?? '') == 'dodger-blue')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/dodger-blue.jpg);     
+        background: url({{ asset("assets") }}/images/login-screen/dodger-blue.jpg);     
         background-color: #2191ff;
     }
     .login_form{
@@ -347,10 +346,10 @@
         border: .5px solid #1E90FF;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'maroon'){ ?>
+@elseif (($setting->theme_name ?? '') == 'maroon')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/maroon.jpg);     
+        background: url({{ asset("assets") }}/images/login-screen/maroon.jpg);     
         background-color: #810304;
     }
     .login_form{
@@ -372,10 +371,10 @@
         border: .5px solid #b92525;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'dark-orange'){ ?>
+@elseif (($setting->theme_name ?? '') == 'dark-orange')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/dark-orange.jpg);      
+        background: url({{ asset("assets") }}/images/login-screen/dark-orange.jpg);      
         background-color: #ff8d00;
     }
     .login_form{
@@ -397,10 +396,10 @@
         border: .5px solid #FF8C00;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'deep-red'){ ?>
+@elseif (($setting->theme_name ?? '') == 'deep-red')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/deep-red.jpg);   
+        background: url({{ asset("assets") }}/images/login-screen/deep-red.jpg);   
         background-color: #c70034;
     }
     .login_form{
@@ -422,10 +421,10 @@
         border: .5px solid #b7b7b7;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'lime-green'){ ?>
+@elseif (($setting->theme_name ?? '') == 'lime-green')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/lime-green.jpg);  
+        background: url({{ asset("assets") }}/images/login-screen/lime-green.jpg);  
         background-color: #34cd34;
     }
     .login_form{
@@ -447,10 +446,10 @@
         border: .5px solid #49c549;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'jazzberry-jam'){ ?>
+@elseif (($setting->theme_name ?? '') == 'jazzberry-jam')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/jazzberry-jam.jpg);    
+        background: url({{ asset("assets") }}/images/login-screen/jazzberry-jam.jpg);    
         background-color: #a01550;
     }
     .login_form{
@@ -472,10 +471,10 @@
         border: .5px solid #9F134E;     
    }
     
-<?php }elseif(ci()->global_setting->theme_name == 'umber'){ ?>
+@elseif (($setting->theme_name ?? '') == 'umber')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/umber.jpg);         
+        background: url({{ asset("assets") }}/images/login-screen/umber.jpg);         
         background-color: #765f0e;
     }
     .login_form{
@@ -498,10 +497,10 @@
     }
     
         
-<?php }elseif(ci()->global_setting->theme_name == 'trinidad'){ ?>
+@elseif (($setting->theme_name ?? '') == 'trinidad')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/trinidad.jpg);      
+        background: url({{ asset("assets") }}/images/login-screen/trinidad.jpg);      
         background-color: #cd5229;
     }
     .login_form{
@@ -524,10 +523,10 @@
    }
    
         
-<?php }elseif(ci()->global_setting->theme_name == 'radical-red'){ ?>
+@elseif (($setting->theme_name ?? '') == 'radical-red')
 
     .login{    
-        background: url(<?php echo $path; ?>assets/images/login-screen/radical-red.jpg); 
+        background: url({{ asset("assets") }}/images/login-screen/radical-red.jpg); 
         background-color: #fb2f51;
     }
     .login_form{
@@ -549,10 +548,10 @@
         border: .5px solid #ff4261;     
    }
     
-<?php }else{ ?>
+@else
     
     .login{  
-        background: url(<?php echo $path; ?>assets/images/login-screen/navy-blue.jpg); 
+        background: url({{ asset("assets") }}/images/login-screen/navy-blue.jpg); 
         background-color: #041b54;
     }
     .login_form{
@@ -574,7 +573,7 @@
         border: .5px solid #1b4bbb;     
    }
     
-<?php } ?>
+@endif
     
     .login{  
         background-repeat: no-repeat;

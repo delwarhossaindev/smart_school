@@ -152,5 +152,6 @@
   
        </script>
 
+<?php ci()->load->view('layout/logout-form'); ?>
 </body>
 </html>
