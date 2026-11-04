@@ -10,6 +10,8 @@ class Loader
 {
     private array $cachedVars = [];
 
+    private array $viewPaths = [];
+
     private array $classes = [];
 
     private array $models = [];
@@ -160,21 +162,41 @@ class Loader
     }
 
     /**
-     * Same order as the HMVC loader: the current module first, then a module named by the
-     * first path segment or a shared view, which all live under resources/views.
+     * Same order as the HMVC loader: the current module, a module named by the first path
+     * segment, then every directory a view was already found in during this request, most
+     * recent first, and finally the shared views. Views rely on this: accounting/invoice/index
+     * includes a plain 'invoice-modal' from its own directory.
      */
     private function findView(string $view): ?string
     {
         $view = str_ends_with($view, '.php') ? $view : $view.'.php';
         $root = resource_path('views/');
+        $file = basename($view);
+        $subpath = dirname($view) === '.' ? '' : dirname($view).'/';
         $module = get_instance()->router->fetch_module();
 
-        $candidates = $module ? [$root.$module.'/'.$view] : [];
-        $candidates[] = $root.$view;
+        $modulePaths = $module ? [$root.$module.'/'.$subpath] : [];
 
-        foreach ($candidates as $candidate) {
-            if (is_file($candidate)) {
-                return $candidate;
+        if ($subpath !== '') {
+            [$first, $rest] = explode('/', $subpath, 2);
+
+            if (is_dir(app_path('Http/Controllers/'.ucfirst($first)))) {
+                $modulePaths[] = $root.$first.'/'.$rest;
+            }
+        }
+
+        foreach ($modulePaths as $path) {
+            if (is_file($path.$file)) {
+                unset($this->viewPaths[$path]);
+                $this->viewPaths = [$path => true] + $this->viewPaths;
+
+                return $path.$file;
+            }
+        }
+
+        foreach (array_keys($this->viewPaths + [$root => true]) as $path) {
+            if (is_file($path.$view)) {
+                return $path.$view;
             }
         }
 

@@ -85,10 +85,10 @@ class Gateway extends \App\Legacy\CI_Controller {
             $dbbl_txn_id = '';
             $invoice_id = '';
 
-            if (isset($_SESSION['dbbl_txn_id']) && !empty($_SESSION['dbbl_txn_id'])) {
+            if (session()->has('dbbl_txn_id') && !empty(session('dbbl_txn_id'))) {
 
-                $dbbl_txn_id = $_SESSION['dbbl_txn_id'];
-                $invoice_id = $_SESSION['invoice_id'];
+                $dbbl_txn_id = session('dbbl_txn_id');
+                $invoice_id = session('invoice_id');
                 
             } else if (isset($_COOKIE['dbbl_txn_id']) && !empty($_COOKIE['dbbl_txn_id'])) {
 

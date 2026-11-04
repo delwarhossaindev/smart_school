@@ -13,7 +13,7 @@ class Config
         $this->config = [
             'base_url' => $baseUrl,
             'index_page' => '',
-            'url_suffix' => '',
+            'url_suffix' => '.html',
             'charset' => 'UTF-8',
             'language' => 'english',
             'enable_query_strings' => false,
@@ -65,14 +65,25 @@ class Config
 
     public function site_url($uri = '', $protocol = null)
     {
-        $uri = ltrim(is_array($uri) ? implode('/', $uri) : (string) $uri, '/');
+        $base = $this->slash_item('base_url');
 
-        return $this->slash_item('base_url').$uri;
+        if (empty($uri)) {
+            return $base;
+        }
+
+        $uri = ltrim(is_array($uri) ? implode('/', $uri) : (string) $uri, '/');
+        $suffix = $this->config['url_suffix'];
+
+        if (($offset = strpos($uri, '?')) !== false) {
+            return $base.substr($uri, 0, $offset).$suffix.substr($uri, $offset);
+        }
+
+        return $base.$uri.$suffix;
     }
 
     public function base_url($uri = '', $protocol = null)
     {
-        return $this->site_url($uri);
+        return $this->slash_item('base_url').ltrim(is_array($uri) ? implode('/', $uri) : (string) $uri, '/');
     }
 
     public function set_item($item, $value)

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40b65edf6840788eb28b8a44137fc79f",
+    "content-hash": "3baa0d34f4f17b758b197936e6c421d0",
     "packages": [
         {
             "name": "brick/math",
@@ -134,6 +134,66 @@
                 }
             ],
             "time": "2026-09-06T14:11:23+00:00"
+        },
+        {
+            "name": "delwarhossaindev/laravel-error-pages",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/delwarhossaindev/laravel-error-pages.git",
+                "reference": "2df514a56d2995caa8862d330ce651e0c0488df1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/delwarhossaindev/laravel-error-pages/zipball/2df514a56d2995caa8862d330ce651e0c0488df1",
+                "reference": "2df514a56d2995caa8862d330ce651e0c0488df1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Delwarhossaindev\\ErrorPages\\ErrorPagesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Delwarhossaindev\\ErrorPages\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Delwar Hossain",
+                    "email": "delwarhossain1103104@gmail.com",
+                    "homepage": "https://github.com/delwarhossaindev"
+                }
+            ],
+            "description": "Beautiful pre-styled Laravel error pages (403, 404, 500, 503) with SVG illustrations for Admin DashBoard / Bootstrap apps.",
+            "homepage": "https://github.com/delwarhossaindev/laravel-error-pages",
+            "keywords": [
+                "403",
+                "404",
+                "500",
+                "503",
+                "admindashboard",
+                "bootstrap",
+                "error-pages",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/delwarhossaindev/laravel-error-pages/issues",
+                "source": "https://github.com/delwarhossaindev/laravel-error-pages"
+            },
+            "time": "2026-10-17T13:22:16+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('/', \App\Http\Controllers\LegacyHome::class);
+
 // Custom routes
 Route::ciCustom('branch/(:any)', \App\Http\Controllers\Web\Web::class, 'branch', ['$1'], 'web', 'web');
 Route::ciCustom('(:any)/about', \App\Http\Controllers\Web\Web::class, 'about', [], 'web', 'web');

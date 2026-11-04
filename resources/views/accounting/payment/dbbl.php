@@ -9,7 +9,7 @@ $url = "https://ecom1.dutchbanglabank.com/ecomws/dbblecomtxn?wsdl";
 $url2 = "https://demo.l1nda.nl/api/webservice/?wsdl";
 
 
-$_SESSION['invoice_id'] = $invoice_id;
+session()->put('invoice_id', $invoice_id);
 
 $params = array(
     "userid" => $userid,
@@ -61,7 +61,7 @@ try {
 
         $dbbl_txn_id = ($trx[1]);
 
-        $_SESSION['dbbl_txn_id'] = $dbbl_txn_id;
+        session()->put('dbbl_txn_id', $dbbl_txn_id);
         setcookie('dbbl_txn_id', $dbbl_txn_id, time() + 300, "/");
         setcookie('invoice_id', $invoice_id, time() + 300, "/");
 

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Controllers\LegacyDispatcher;
+use App\Legacy\PhpViewEngine;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -10,6 +11,8 @@ class LegacyRouteServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $this->app['view.engine.resolver']->register('php', fn () => new PhpViewEngine($this->app['files']));
+
         /*
          * Registers the routes of one controller: "{$prefix}" for its index, and
          * "{$prefix}/{method}/{args?}" for each action. Extra URI segments are passed
