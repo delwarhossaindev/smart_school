@@ -13,7 +13,7 @@ class Config
         $this->config = [
             'base_url' => $baseUrl,
             'index_page' => '',
-            'url_suffix' => '.html',
+            'url_suffix' => '',
             'charset' => 'UTF-8',
             'language' => 'english',
             'enable_query_strings' => false,

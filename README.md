@@ -162,7 +162,7 @@ php artisan migrate
 | WAMP | `http://localhost/ssm/public/` |
 | `php artisan serve` | `http://localhost:8000` |
 
-The login page is at `/auth/login.html`.
+The login page is at `/login`.
 
 ### Database notes
 
@@ -170,7 +170,7 @@ The login page is at `/auth/login.html`.
 > **Do not run `php artisan db:seed`.** `RolePermissionSeeder` expects the Spatie permission tables and a `users` table with `name` and `email` columns. Neither exists here. The application's roles and permissions are stored in its own tables and managed under `administrator/role` and `administrator/permission`.
 
 - **With a dump:** the migration sees the existing tables and leaves them alone. Rolling it back does not drop them.
-- **Without a dump:** `php artisan migrate` creates all the tables from `database/schema/application.sql`, but that file contains no data. There is no user to log in with, and `/` shows the purchase-code screen until a code is stored in the `purchase` table.
+- **Without a dump:** `php artisan migrate` creates all the tables from `database/schema/application.sql`, but that file contains no data. There is no user to log in with until you run `php artisan db:seed --class=ApplicationSeeder`, which creates the settings, roles, permissions and a `superadmin` account, and prints its password.
 
 <a id="architecture"></a>
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::any('/', \App\Http\Controllers\LegacyHome::class);
 
 // Custom routes
+Route::ciCustom('login', \App\Http\Controllers\Welcome::class, 'index', [], NULL, 'welcome');
 Route::ciCustom('branch/(:any)', \App\Http\Controllers\Web\Web::class, 'branch', ['$1'], 'web', 'web');
 Route::ciCustom('(:any)/about', \App\Http\Controllers\Web\Web::class, 'about', [], 'web', 'web');
 Route::ciCustom('(:any)', \App\Http\Controllers\Web\Web::class, 'index', ['$1'], 'web', 'web');
@@ -46,7 +47,6 @@ Route::ci('profile', \App\Http\Controllers\Profile::class, ['index', 'update', '
 Route::ci('theme', \App\Http\Controllers\Theme::class, ['index', 'activate'], null, 'theme');
 Route::ci('usercomplain', \App\Http\Controllers\Usercomplain::class, ['index', 'add', 'edit', 'get_single_complain', 'delete'], null, 'usercomplain');
 Route::ci('userleave', \App\Http\Controllers\Userleave::class, ['index', 'add', 'edit', 'get_single_leave_application', 'leave_to', 'attachment', 'delete'], null, 'userleave');
-Route::ci('verify', \App\Http\Controllers\Verify::class, ['index'], null, 'verify');
 Route::ci('welcome', \App\Http\Controllers\Welcome::class, ['index'], null, 'welcome');
 
 // Academic module

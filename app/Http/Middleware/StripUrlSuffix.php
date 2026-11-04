@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Every link in the application ends in ".html" (the old url_suffix setting), while the
- * routes are defined without it. Runs before routing and removes the suffix from the path.
+ * The application's links used to end in ".html" (the old url_suffix setting). Bookmarks and
+ * saved links may still have it, so this runs before routing and removes it from the path.
  */
 class StripUrlSuffix
 {

@@ -43,7 +43,7 @@ class Welcome extends \App\Legacy\CI_Controller {
             define('SMS', 'Global - Multi Branch School Management System'); 
         }
         
-        $this->load->view('login-demo');
+        $this->load->view('login');
     }
 
 }

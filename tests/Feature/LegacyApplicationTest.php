@@ -18,7 +18,7 @@ class LegacyApplicationTest extends TestCase
     {
         $this->get('/academic/classes/index.html')
             ->assertStatus(307)
-            ->assertRedirectContains('auth/login.html');
+            ->assertRedirectContains('auth/login');
     }
 
     public function test_extra_segments_are_routed_to_the_controller_action(): void
